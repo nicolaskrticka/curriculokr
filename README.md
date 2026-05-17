@@ -1,3 +1,6 @@
+portfólio HUB
+
+
 SITE: https://nicolaskrticka.github.io/CurriculoKr/
 
 Nome: Nicolas Krticka Bastos Bayao 
