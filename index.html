@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicolas Krticka - Currículo</title>
+    
+    <!-- Tailwind CSS (via CDN para funcionar direto no navegador) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Ícones Lucide (via CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Estilos Customizados e Animações -->
+    <style>
+        /* Ocultar barra de rolagem */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Animações dos ícones flutuantes */
+        @keyframes float1 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(5deg); } }
+        @keyframes float2 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(8px) rotate(-10deg); } }
+        @keyframes float3 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @keyframes pulse-scale { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.2) rotate(180deg); } }
+        
+        .anim-float-1 { animation: float1 4s ease-in-out infinite; }
+        .anim-float-2 { animation: float2 5s ease-in-out infinite; }
+        .anim-float-3 { animation: float3 3.5s ease-in-out infinite; }
+        .anim-pulse { animation: pulse-scale 6s linear infinite; }
+
+        /* Animação das abas */
+        .tab-content { display: none; opacity: 0; transform: translateY(10px); }
+        .tab-content.active { display: block; animation: fadeIn 0.4s forwards; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        /* Sistema de Notificação (Toast) */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .toast {
+            background: white;
+            border-radius: 8px;
+            padding: 12px 20px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateY(-20px);
+            opacity: 0;
+            animation: slideIn 0.3s forwards;
+            border-left: 4px solid #3b82f6;
+        }
+        .toast.success { border-color: #22c55e; }
+        .toast.info { border-color: #3b82f6; }
+        .toast.fade-out { animation: fadeOut 0.3s forwards; }
+        
+        @keyframes slideIn { to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeOut { to { transform: translateY(-20px); opacity: 0; } }
+
+        /* Animação Barras de Progresso */
+        @keyframes fillBar { from { width: 0; } }
+        .progress-bar-fill { animation: fillBar 1.5s ease-out forwards; }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans selection:bg-blue-200 selection:text-blue-900 text-slate-800">
+
+    <!-- Container das Notificações -->
+    <div id="toast-container"></div>
+
+    <!-- Decoração de Fundo -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-400/20 blur-3xl"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-fuchsia-400/10 blur-3xl"></div>
+        <div class="absolute top-[40%] right-[-5%] w-[30%] h-[30%] rounded-full bg-cyan-400/10 blur-3xl"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 py-12 relative z-10">
+        <div class="flex flex-col lg:flex-row gap-8">
+            
+            <!-- Coluna Esquerda: Perfil Fixo -->
+            <div class="w-full lg:w-1/3">
+                <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden sticky top-8 border border-slate-100">
+                    <!-- Cabeçalho Animado -->
+                    <div class="h-40 bg-gradient-to-br from-blue-600 via-indigo-600 to-fuchsia-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
+                        
+                        <!-- Elementos Flutuantes -->
+                        <div class="absolute top-4 left-6 text-white/90 anim-float-1"><i data-lucide="code" class="w-6 h-6"></i></div>
+                        <div class="absolute top-6 right-8 text-yellow-300/90 anim-float-2"><i data-lucide="zap" class="w-6 h-6"></i></div>
+                        <div class="absolute top-16 left-1/4 text-white/60 anim-float-3"><i data-lucide="terminal" class="w-5 h-5"></i></div>
+                        <div class="absolute top-10 right-1/4 text-cyan-300/80 anim-float-1"><i data-lucide="cpu" class="w-5 h-5"></i></div>
+                        <div class="absolute top-4 right-1/3 text-pink-300/80 anim-pulse"><i data-lucide="sparkles" class="w-5 h-5"></i></div>
+                        <div class="absolute top-20 left-10 text-emerald-300/80 anim-float-3"><i data-lucide="shield" class="w-4 h-4"></i></div>
+                        <div class="absolute top-20 right-12 text-white/50 anim-float-2"><i data-lucide="network" class="w-4 h-4"></i></div>
+                    </div>
+                    
+                    <div class="px-8 pb-8 relative">
+                        <!-- Foto / Iniciais -->
+                        <div class="w-32 h-32 rounded-2xl bg-white p-2 absolute -top-20 shadow-lg rotate-3 transition-transform hover:rotate-0 duration-300">
+                            <div class="w-full h-full rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-4xl font-bold text-white shadow-inner">
+                                NK
+                            </div>
+                        </div>
+
+                        <div class="pt-20">
+                            <h1 class="text-2xl font-bold text-slate-800 mb-1">Nicolas Krticka</h1>
+                            <h2 class="text-blue-600 font-medium flex items-center gap-2 mb-4">
+                                <i data-lucide="shield" class="w-4 h-4"></i>
+                                Foco em Cibersegurança e Redes
+                            </h2>
+
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center gap-3 text-slate-600 text-sm">
+                                    <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400">
+                                        <i data-lucide="map-pin" class="w-4 h-4"></i>
+                                    </div>
+                                    <span>Brasília, DF</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-slate-600 text-sm">
+                                    <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400">
+                                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    </div>
+                                    <span>19 anos</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-slate-600 text-sm">
+                                    <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400">
+                                        <i data-lucide="mail" class="w-4 h-4"></i>
+                                    </div>
+                                    <a href="mailto:nicolas.krticka@sempreceub.com" class="hover:text-blue-600 truncate transition-colors">
+                                        nicolas.krticka@sempreceub.com
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-3">
+                                <button onclick="baixarCurriculo()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-200 hover:shadow-blue-300 active:scale-95">
+                                    <i data-lucide="download" class="w-5 h-5"></i>
+                                    Baixar Currículo
+                                </button>
+                                <div class="flex gap-3">
+                                    <button onclick="copiarEmail()" class="flex-1 bg-slate-50 hover:bg-slate-100 text-slate-700 py-3 px-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2 border border-slate-200 active:scale-95 group">
+                                        <i data-lucide="copy" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                                        Copiar Email
+                                    </button>
+                                    <a href="https://github.com/nicolaskrticka" target="_blank" rel="noopener noreferrer" class="flex-1 bg-slate-900 hover:bg-slate-800 text-white py-3 px-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2 shadow-lg shadow-slate-200 active:scale-95 group">
+                                        <i data-lucide="github" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                                        GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna Direita: Conteúdo Principal -->
+            <div class="w-full lg:w-2/3">
+                <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 p-2 sm:p-4 border border-slate-100">
+                    
+                    <!-- Navegação de Abas -->
+                    <div class="flex overflow-x-auto hide-scrollbar gap-2 p-2 bg-slate-50 rounded-2xl mb-6 border border-slate-100" id="tabs-container">
+                        <button onclick="mudarAba('sobre')" class="tab-btn active flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm transition-all whitespace-nowrap bg-white text-blue-600 shadow-sm shadow-slate-200" data-target="sobre">
+                            <i data-lucide="users" class="w-4 h-4"></i> Sobre Mim
+                        </button>
+                        <button onclick="mudarAba('experiencia')" class="tab-btn flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm transition-all whitespace-nowrap text-slate-500 hover:text-slate-700 hover:bg-slate-100/50" data-target="experiencia">
+                            <i data-lucide="briefcase" class="w-4 h-4"></i> Experiência & Educação
+                        </button>
+                        <button onclick="mudarAba('habilidades')" class="tab-btn flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm transition-all whitespace-nowrap text-slate-500 hover:text-slate-700 hover:bg-slate-100/50" data-target="habilidades">
+                            <i data-lucide="code" class="w-4 h-4"></i> Habilidades
+                        </button>
+                    </div>
+
+                    <!-- Área de Conteúdo -->
+                    <div class="p-4 sm:p-6 min-h-[500px]">
+                        
+                        <!-- ABA: SOBRE MIM -->
+                        <div id="sobre" class="tab-content active space-y-8">
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                    Uma breve introdução
+                                </h3>
+                                <p class="text-slate-600 leading-relaxed text-lg">
+                                    Sou estudante de <strong class="text-slate-800">Ciência da Computação</strong> no CEUB, apaixonado por tecnologia e resolução de problemas complexos. Iniciei minha jornada acadêmica no Direito, onde desenvolvi forte pensamento analítico e argumentativo, mas foi na computação que encontrei minha verdadeira vocação.
+                                </p>
+                                <p class="text-slate-600 leading-relaxed text-lg mt-4">
+                                    Atualmente, dedico meus estudos às áreas de <strong class="text-slate-800">Cibersegurança e Redes de Computadores</strong>. Meu objetivo é construir infraestruturas seguras e resilientes, combinando o entendimento prático de hardware que adquiri ao longo dos anos com o conhecimento teórico em desenvolvimento de software e segurança da informação.
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100/50">
+                                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4">
+                                        <i data-lucide="shield" class="w-6 h-6"></i>
+                                    </div>
+                                    <h4 class="font-bold text-slate-800 mb-2">Segurança</h4>
+                                    <p class="text-slate-600 text-sm">Foco em proteção de dados, análise de vulnerabilidades e implementação de práticas seguras.</p>
+                                </div>
+                                <div class="bg-gradient-to-br from-indigo-50 to-violet-50 p-6 rounded-2xl border border-indigo-100/50">
+                                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-4">
+                                        <i data-lucide="network" class="w-6 h-6"></i>
+                                    </div>
+                                    <h4 class="font-bold text-slate-800 mb-2">Redes</h4>
+                                    <p class="text-slate-600 text-sm">Interesse em topologias, protocolos de comunicação e infraestrutura de TI.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ABA: EXPERIÊNCIA & EDUCAÇÃO -->
+                        <div id="experiencia" class="tab-content space-y-10">
+                            <!-- Educação -->
+                            <section>
+                                <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                    <i data-lucide="graduation-cap" class="w-6 h-6 text-blue-600"></i> Trajetória Acadêmica
+                                </h3>
+                                <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:ml-[1.25rem] md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-blue-600 before:to-slate-200">
+                                    
+                                    <div class="relative pl-12 md:pl-16">
+                                        <div class="absolute left-0 mt-1.5 w-10 h-10 rounded-full bg-blue-100 border-4 border-white flex items-center justify-center shadow-sm">
+                                            <i data-lucide="terminal" class="w-4 h-4 text-blue-600"></i>
+                                        </div>
+                                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                            <span class="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-3 inline-block">2026 - Presente</span>
+                                            <h4 class="font-bold text-slate-800 text-lg">Ciência da Computação</h4>
+                                            <p class="text-slate-500 text-sm mb-3">Centro Universitário de Brasília (CEUB) • 1º Semestre</p>
+                                            <p class="text-slate-600 text-sm">Estudo de algoritmos, estruturas de dados, arquitetura de computadores e fundamentos de desenvolvimento de software e segurança.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="relative pl-12 md:pl-16">
+                                        <div class="absolute left-0 mt-1.5 w-10 h-10 rounded-full bg-slate-100 border-4 border-white flex items-center justify-center shadow-sm">
+                                            <i data-lucide="briefcase" class="w-4 h-4 text-slate-500"></i>
+                                        </div>
+                                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                            <span class="text-sm font-medium text-slate-500 bg-slate-50 px-3 py-1 rounded-full mb-3 inline-block">3 Semestres Concluídos</span>
+                                            <h4 class="font-bold text-slate-800 text-lg">Direito</h4>
+                                            <p class="text-slate-500 text-sm mb-3">Centro Universitário de Brasília (CEUB)</p>
+                                            <p class="text-slate-600 text-sm">Desenvolvimento de habilidades em legislação, compliance, argumentação lógica e análise de contratos, essenciais para áreas como Direito Digital e LGPD.</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </section>
+
+                            <!-- Experiência -->
+                            <section>
+                                <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                    <i data-lucide="cpu" class="w-6 h-6 text-blue-600"></i> Experiência Prática
+                                </h3>
+                                <div class="grid gap-4">
+                                    <div class="group p-5 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-lg hover:shadow-slate-200/40 transition-all">
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                                                <i data-lucide="cpu" class="w-6 h-6"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold text-slate-800">Manutenção e Montagem de Hardware</h4>
+                                                <p class="text-slate-600 mt-2 text-sm leading-relaxed">
+                                                    Ampla experiência prática com formatação de sistemas operacionais, montagem de computadores (desktops e workstations), diagnóstico de falhas de hardware, otimização de performance e manutenção preventiva.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="group p-5 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-lg hover:shadow-slate-200/40 transition-all">
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                                                <i data-lucide="network" class="w-6 h-6"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold text-slate-800">Infraestrutura e Redes Básicas</h4>
+                                                <p class="text-slate-600 mt-2 text-sm leading-relaxed">
+                                                    Implementação de sistemas básicos de redes, configuração de roteadores, switches, diagnóstico de problemas de conectividade e organização estrutural de cabeamento para pequenos ambientes.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- ABA: HABILIDADES -->
+                        <div id="habilidades" class="tab-content space-y-10">
+                            <!-- Técnicas -->
+                            <section>
+                                <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                    <i data-lucide="code" class="w-6 h-6 text-blue-600"></i> Competências Técnicas
+                                </h3>
+                                <div class="space-y-5">
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span class="font-medium text-slate-700">C</span>
+                                            <span class="text-slate-500 text-sm">Intermediário</span>
+                                        </div>
+                                        <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                                            <div class="bg-blue-600 h-2.5 rounded-full progress-bar-fill" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span class="font-medium text-slate-700">Python</span>
+                                            <span class="text-slate-500 text-sm">Intermediário</span>
+                                        </div>
+                                        <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                                            <div class="bg-indigo-500 h-2.5 rounded-full progress-bar-fill" style="width: 65%; animation-delay: 0.1s;"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span class="font-medium text-slate-700">Banco de Dados (DBdesign / BrModelo)</span>
+                                            <span class="text-slate-500 text-sm">Básico</span>
+                                        </div>
+                                        <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                                            <div class="bg-violet-500 h-2.5 rounded-full progress-bar-fill" style="width: 40%; animation-delay: 0.2s;"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <span class="font-medium text-slate-700">Hardware & Redes</span>
+                                            <span class="text-slate-500 text-sm">Avançado</span>
+                                        </div>
+                                        <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                                            <div class="bg-blue-800 h-2.5 rounded-full progress-bar-fill" style="width: 85%; animation-delay: 0.3s;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <!-- Soft Skills -->
+                                <section>
+                                    <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                        <i data-lucide="users" class="w-5 h-5 text-blue-600"></i> Soft Skills
+                                    </h3>
+                                    <div class="flex flex-col gap-3">
+                                        <div class="flex items-center gap-3 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-100"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i><span class="text-slate-700 text-sm font-medium">Comunicação Assertiva</span></div>
+                                        <div class="flex items-center gap-3 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-100"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i><span class="text-slate-700 text-sm font-medium">Trabalho em Equipe</span></div>
+                                        <div class="flex items-center gap-3 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-100"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i><span class="text-slate-700 text-sm font-medium">Organização e Planejamento</span></div>
+                                        <div class="flex items-center gap-3 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-100"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i><span class="text-slate-700 text-sm font-medium">Atitude Proativa</span></div>
+                                        <div class="flex items-center gap-3 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-100"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i><span class="text-slate-700 text-sm font-medium">Resolução de Problemas</span></div>
+                                    </div>
+                                </section>
+
+                                <!-- Idiomas -->
+                                <section>
+                                    <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                        <i data-lucide="globe" class="w-5 h-5 text-blue-600"></i> Idiomas
+                                    </h3>
+                                    <div class="grid gap-3">
+                                        <div class="bg-white border border-slate-100 p-4 rounded-xl flex items-center justify-between shadow-sm">
+                                            <div><h4 class="font-bold text-slate-800">Português</h4><p class="text-xs text-slate-500">Nativo</p></div>
+                                            <span class="px-3 py-1 bg-green-50 text-green-600 text-xs font-bold rounded-full">Fluente</span>
+                                        </div>
+                                        <div class="bg-white border border-slate-100 p-4 rounded-xl flex items-center justify-between shadow-sm">
+                                            <div><h4 class="font-bold text-slate-800">Inglês</h4><p class="text-xs text-slate-500">Técnico & Leitura</p></div>
+                                            <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full">Intermediário</span>
+                                        </div>
+                                        <div class="bg-white border border-slate-100 p-4 rounded-xl flex items-center justify-between shadow-sm">
+                                            <div><h4 class="font-bold text-slate-800">Espanhol</h4><p class="text-xs text-slate-500">Comunicação Básica</p></div>
+                                            <span class="px-3 py-1 bg-yellow-50 text-yellow-600 text-xs font-bold rounded-full">Intermediário</span>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rodapé -->
+        <footer class="mt-12 text-center text-slate-500 text-sm">
+            <p>© 2024 Nicolas Krticka Bastos Bayao. Desenvolvido com HTML, Tailwind CSS e JS Vanilla.</p>
+        </footer>
+    </div>
+
+    <!-- Scripts JavaScript Puro -->
+    <script>
+        // 1. Inicializa os ícones da biblioteca Lucide
+        lucide.createIcons();
+
+        // 2. Sistema de Notificações (Toast)
+        function showToast(message, desc = '', type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let iconSvg = type === 'success' 
+                ? `<svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`
+                : `<svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+
+            toast.innerHTML = `
+                ${iconSvg}
+                <div>
+                    <h4 class="text-sm font-bold text-slate-800">${message}</h4>
+                    ${desc ? `<p class="text-xs text-slate-500 mt-0.5">${desc}</p>` : ''}
+                </div>
+            `;
+            
+            container.appendChild(toast);
+
+            // Remove o toast depois de 3 segundos
+            setTimeout(() => {
+                toast.classList.add('fade-out');
+                setTimeout(() => toast.remove(), 300); // tempo da animação
+            }, 3000);
+        }
+
+        // 3. Funções dos Botões
+        function copiarEmail() {
+            const email = 'nicolas.krticka@sempreceub.com';
+            navigator.clipboard.writeText(email).then(() => {
+                showToast('Email copiado para a área de transferência!', email, 'success');
+            }).catch(err => {
+                showToast('Erro ao copiar email', '', 'info');
+            });
+        }
+
+        function baixarCurriculo() {
+            showToast('Preparando currículo para download...', 'Aguarde um momento', 'info');
+            
+            // Simulação de carregamento (aqui você pode depois colocar um link real do seu PDF)
+            setTimeout(() => {
+                showToast('Currículo baixado com sucesso!', '', 'success');
+                // Para botar o download de verdade, use algo como: 
+                // window.open('caminho/para/seu/curriculo.pdf', '_blank');
+            }, 2000);
+        }
+
+        // 4. Lógica de troca de abas (Tabs)
+        function mudarAba(abaId) {
+            // Esconde todos os conteudos e reseta botões
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                // Classes de aba inativa
+                btn.className = "tab-btn flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm transition-all whitespace-nowrap text-slate-500 hover:text-slate-700 hover:bg-slate-100/50";
+                
+                // Pinta os ícones de cinza claro
+                const icon = btn.querySelector('svg');
+                if(icon) { icon.classList.remove('text-blue-600'); icon.classList.add('text-slate-400'); }
+            });
+
+            // Mostra o conteudo clicado e destaca o botão
+            document.getElementById(abaId).classList.add('active');
+            
+            const btnAtivo = document.querySelector(`.tab-btn[data-target="${abaId}"]`);
+            // Classes de aba ativa
+            btnAtivo.className = "tab-btn active flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm transition-all whitespace-nowrap bg-white text-blue-600 shadow-sm shadow-slate-200";
+            
+            // Pinta o ícone da aba ativa de azul
+            const iconAtivo = btnAtivo.querySelector('svg');
+            if(iconAtivo) { iconAtivo.classList.remove('text-slate-400'); iconAtivo.classList.add('text-blue-600'); }
+        }
+    </script>
+</body>
+</html>
