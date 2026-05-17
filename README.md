@@ -1,4 +1,4 @@
-portfólio HUB
+Portfólio HUB
 
 
 SITE: https://nicolaskrticka.github.io/CurriculoKr/
